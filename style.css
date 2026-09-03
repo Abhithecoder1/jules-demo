@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #666;
+}
+
+.stats {
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#totalEmployees {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.employee-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.employee-section h2 {
+    margin-bottom: 20px;
+}
+
+.employee {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.employee:last-child {
+    border-bottom: none;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.department {
+    color: #666;
+}

@@ -23,8 +23,32 @@
         </div>
       </section>
 
+      <section class="form-section">
+        <h2>Add New Employee</h2>
+        <form id="addEmployeeForm" class="add-form">
+          <div class="form-group">
+            <input type="text" id="nameInput" placeholder="Full Name" required />
+          </div>
+          <div class="form-group">
+            <input type="text" id="deptInput" placeholder="Department (e.g. IT, HR)" required />
+          </div>
+          <div class="form-group">
+            <input type="text" id="roleInput" placeholder="Role (e.g. Developer)" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Add Employee</button>
+        </form>
+      </section>
+
       <section class="employee-section">
-        <h2>Employees</h2>
+        <div class="section-header">
+          <h2>Employees</h2>
+          <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search by name or role..." />
+            <select id="departmentFilter">
+              <option value="All">All Departments</option>
+            </select>
+          </div>
+        </div>
 
         <div id="employeeList"></div>
       </section>

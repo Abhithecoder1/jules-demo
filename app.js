@@ -41,24 +41,28 @@ const employeeList = document.getElementById("employeeList");
 const totalEmployees = document.getElementById("totalEmployees");
 const searchInput = document.getElementById("searchInput");
 const departmentFilter = document.getElementById("departmentFilter");
+const sortSelect = document.getElementById("sortSelect");
 const addEmployeeForm = document.getElementById("addEmployeeForm");
 const nameInput = document.getElementById("nameInput");
 const deptInput = document.getElementById("deptInput");
 const roleInput = document.getElementById("roleInput");
 
+const DEFAULT_DEPARTMENTS = ["IT", "HR", "Sales", "Finance", "Marketing"];
+
 function updateDepartmentFilterOptions() {
     const currentSelected = departmentFilter.value || "All";
-    const departments = Array.from(new Set(employees.map(emp => emp.department))).sort();
+    const employeeDepts = employees.map(emp => emp.department);
+    const allDepts = Array.from(new Set([...DEFAULT_DEPARTMENTS, ...employeeDepts])).sort();
 
     departmentFilter.innerHTML = `<option value="All">All Departments</option>`;
-    departments.forEach(dept => {
+    allDepts.forEach(dept => {
         const option = document.createElement("option");
         option.value = dept;
         option.textContent = dept;
         departmentFilter.appendChild(option);
     });
 
-    if (departments.includes(currentSelected) || currentSelected === "All") {
+    if (allDepts.includes(currentSelected) || currentSelected === "All") {
         departmentFilter.value = currentSelected;
     } else {
         departmentFilter.value = "All";
@@ -68,12 +72,26 @@ function updateDepartmentFilterOptions() {
 function displayEmployees() {
     const searchTerm = searchInput.value.toLowerCase().trim();
     const selectedDepartment = departmentFilter.value;
+    const sortOption = sortSelect ? sortSelect.value : "name-asc";
 
-    const filtered = employees.filter(emp => {
+    let filtered = employees.filter(emp => {
         const matchesSearch = emp.name.toLowerCase().includes(searchTerm) ||
                               emp.role.toLowerCase().includes(searchTerm);
         const matchesDept = selectedDepartment === "All" || emp.department === selectedDepartment;
         return matchesSearch && matchesDept;
+    });
+
+    filtered.sort((a, b) => {
+        if (sortOption === "name-asc") {
+            return a.name.localeCompare(b.name);
+        } else if (sortOption === "name-desc") {
+            return b.name.localeCompare(a.name);
+        } else if (sortOption === "dept-asc") {
+            const deptCompare = a.department.localeCompare(b.department);
+            if (deptCompare !== 0) return deptCompare;
+            return a.name.localeCompare(b.name);
+        }
+        return 0;
     });
 
     employeeList.innerHTML = "";
@@ -100,7 +118,7 @@ function displayEmployees() {
         });
     }
 
-    totalEmployees.textContent = employees.length;
+    totalEmployees.textContent = filtered.length;
 }
 
 function deleteEmployee(id) {
@@ -135,6 +153,9 @@ addEmployeeForm.addEventListener("submit", (e) => {
 
 searchInput.addEventListener("input", displayEmployees);
 departmentFilter.addEventListener("change", displayEmployees);
+if (sortSelect) {
+    sortSelect.addEventListener("change", displayEmployees);
+}
 
 // Initial setup
 updateDepartmentFilterOptions();

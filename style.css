@@ -120,15 +120,49 @@ input[type="text"]:focus, select:focus {
     display: flex;
     gap: 12px;
     flex: 1;
-    max-width: 500px;
+    flex-wrap: wrap;
 }
 
 .controls input[type="text"] {
-    flex: 2;
+    flex: 1.2;
+    min-width: 180px;
 }
 
 .controls select {
     flex: 1;
+    min-width: 140px;
+}
+
+@media (max-width: 600px) {
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .controls {
+        max-width: 100%;
+        flex-direction: column;
+    }
+
+    .controls input[type="text"],
+    .controls select {
+        width: 100%;
+    }
+
+    .add-form {
+        flex-direction: column;
+    }
+
+    .employee {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .employee-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 .employee {

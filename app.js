@@ -157,6 +157,38 @@ if (sortSelect) {
     sortSelect.addEventListener("change", displayEmployees);
 }
 
+// Theme Toggle Logic
+const themeToggleBtn = document.getElementById("themeToggle");
+const themeToggleIcon = document.getElementById("themeToggleIcon");
+const themeToggleText = document.getElementById("themeToggleText");
+
+function applyTheme(theme) {
+    if (theme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (themeToggleIcon) themeToggleIcon.textContent = "☀️";
+        if (themeToggleText) themeToggleText.textContent = "Light Mode";
+    } else {
+        document.documentElement.setAttribute("data-theme", "light");
+        if (themeToggleIcon) themeToggleIcon.textContent = "🌙";
+        if (themeToggleText) themeToggleText.textContent = "Dark Mode";
+    }
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        localStorage.setItem("theme", newTheme);
+        applyTheme(newTheme);
+    });
+}
+
 // Initial setup
+initTheme();
 updateDepartmentFilterOptions();
 displayEmployees();
